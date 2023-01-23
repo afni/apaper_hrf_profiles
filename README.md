@@ -1,5 +1,5 @@
-# apaper_hdr_profiles
-Scripts accompanying Chen et al. (2022/3) work on modeling, visualizing and understanding FMRI hemodynamic response.
+# apaper_hrf_profiles
+Scripts accompanying Chen et al. (2023) work on modeling, visualizing and understanding FMRI hemodynamic response.
 
 ---------------------------------------------------------------------------
 Essentially all scripts here use AFNI.
