@@ -1,0 +1,34 @@
+# This is a script to compare HRFs between the two groups at the population level
+# Each HRF at the indiividual level is characterized with 14 time points with a
+# time resolution TR = 1.25s. Two covariates are considered: sex and age.
+
+3dMSS -prefix output \
+      -jobs 16 \
+      -lme ‘sex+age+s(TR)+s(TR,by=group)’ \
+      -ranEff ‘list(subject=~1)’ \
+      -qVars ‘sex,age,TR,group’ \
+      -prediction @HRF.table \
+      -dataTable @input.table
+      
+# The input file "input.table" is structured in a long data frame format:
+
+subject age sex group TR  InputFile
+s1      29   1    1   0   s1.Inc.b0.nii
+s1      29   1    1   1   s1.Inc.b1.nii
+s1      29   1    1   2   s1.Inc.b2.nii
+s1      29   1    1   3   s1.Inc.b3.nii
+s1      29   1    1   4   s1.Inc.b4.nii
+...
+
+# The following table as the input file "HRF.table" provides the specifications 
+# for predicted HRFs:
+
+label   age   sex   group   TR
+HV0.00   0     0     -1    0.00
+HV0.25   0     0     -1    0.25
+HV0.50   0     0     -1    0.50
+...
+BP0.00   0     0      1    0.00
+BP0.25   0     0      1    0.25
+BP0.50   0     0      1    0.50
+...
