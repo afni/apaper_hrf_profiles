@@ -1,5 +1,5 @@
-# This is a script to compare HRFs between the two groups at the population level
-# Each HRF at the indiividual level is characterized with 14 time points with a
+# This 3dMSS script compares HRFs between the two groups at the population level
+# Each HRF at the indiividual level is characterized at 14 time points with a
 # time resolution TR = 1.25s. Two covariates are considered: sex and age.
 
 3dMSS -prefix output                      \
