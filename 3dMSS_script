@@ -8,7 +8,7 @@
       -ranEff ‘list(subject=~1)’ \
       -qVars ‘sex,age,TR,group’ \
       -prediction @HRF.table \
-      -dataTable @input.table
+      -dataTable  @input.table
       
 # The input file "input.table" is structured in a long data frame format:
 
