@@ -1,6 +1,7 @@
 # This 3dMSS script compares HRFs between the two groups of BP (bipolar disorder) and HV (healthy volunteer) 
 # at the population level. Each HRF at the indiividual level is characterized at 14 time points with a time 
-# resolution TR = 1.25s. Two covariates are considered: sex and age.
+# resolution TR = 1.25s. Two covariates are considered: sex and age. The program 3dMSS is part of the AFNI
+# package (https://afni.nimh.nih.gov/).
 
 3dMSS -prefix output                      \
       -jobs 16                            \
