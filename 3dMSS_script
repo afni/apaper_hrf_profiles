@@ -1,24 +1,24 @@
-# This 3dMSS script compares HRFs between the two groups at the population level. Each HRF at the 
-# indiividual level is characterized at 14 time points with a time resolution TR = 1.25s. Two covariates 
-# are considered: sex and age.
+# This 3dMSS script compares HRFs between the two groups of BP (bipolar disorder) and HV (healthy volunteer) 
+# at the population level. Each HRF at the indiividual level is characterized at 14 time points with a time 
+# resolution TR = 1.25s. Two covariates are considered: sex and age.
 
 3dMSS -prefix output                      \
       -jobs 16                            \
-      -lme ‘sex+age+s(TR)+s(TR,by=group)’ \
-      -ranEff ‘list(subject=~1)’          \
-      -qVars ‘sex,age,TR,group’           \
+      -lme 'sex+age+s(TR)+s(TR,by=group)' \
+      -ranEff 'list(subject=~1)'          \
+      -qVars 'sex,age,TR,group'           \
       -prediction @HRF.table              \
       -dataTable  @input.table
 
 # The output filename and number of CPUs for parallelization are specified through -prefix and -jobs, 
-# respectively. The expression s() in the model specification -lme represents the smooth function, and 
-# the two terms s(TR), s(TR,by=group) code the overall HRF profile and the HRF difference between the 
-# two groups. The term list(subject=~1) under the option -ranEff indicates the random effects for the 
-# cross-individual variability in intercept. The number of thin plate spline bases was set to the default 
-# K = 10. The option -qVars identifies quantitative variables (TR and age in this case plus dummy-coded 
-# sex and group). The last two specifiers -prediction and -dataTable list one table for HRF prediction 
-# and another for input data information, respectively. The input file "input.table" is structured in a 
-# long data frame format:
+# respectively. The expression s() in the model specification indicator '-lme' represents the smooth 
+# function, and the two terms 's(TR)' and 's(TR,by=group)' code the overall HRF profile and the HRF 
+# difference between the two groups. The term 'list(subject=~1)' under the option '-ranEff' indicates the 
+# random effects for the cross-individual variability in intercept. The number of thin plate spline bases
+# was set to the default K = 10. The option '-qVars' identifies quantitative variables (TR and age in 
+# this case plus dummy-coded sex and group). The last two specifiers -prediction and -dataTable list one
+# table for HRF prediction and another for input data information, respectively. The input file 
+# "input.table" is structured in a long data frame format:
 
 subject age sex group TR  InputFile
 s1      29   1    1   0   s1.Inc.b0.nii
