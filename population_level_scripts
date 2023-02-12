@@ -42,21 +42,21 @@ s72  3.5  M  HV Inc   s72.Inc.nii
 # This 3dMVM script specifies an ANCOVA model with one quantitative predictor (age) and four factors: sex (male/female), 
 # group (BP/HV), condition (Con/Inc), and TR (0-13).
 
-3dMVM -prefix sampled-HRF -jobs 8 \
--bsVars 'sex+age+grp' \
--wsVars 'cond*TR' \
--qVars 'age' -qVarCenters '0' \
--num_glt 56       \
--gltLabel 1  BP-ConTR0  -gltCode  1  'grp : 1*BP cond : 1*Con TR : 1*0' \
--gltLabel 2  BP-ConTR1  -gltCode  2  'grp : 1*BP cond : 1*Con TR : 1*1' \
--gltLabel 3  BP-ConTR2  -gltCode  3  'grp : 1*BP cond : 1*Con TR : 1*2' \
--gltLabel 4  BP-ConTR3  -gltCode  4  'grp : 1*BP cond : 1*Con TR : 1*3' \
--gltLabel 5  BP-ConTR4  -gltCode  5  'grp : 1*BP cond : 1*Con TR : 1*4' \
--gltLabel 6  BP-ConTR5  -gltCode  6  'grp : 1*BP cond : 1*Con TR : 1*5' \
--gltLabel 7  BP-ConTR6  -gltCode  7  'grp : 1*BP cond : 1*Con TR : 1*6' \
--gltLabel 8  BP-ConTR7  -gltCode  8  'grp : 1*BP cond : 1*Con TR : 1*7' \
--gltLabel 9  BP-ConTR8  -gltCode  9  'grp : 1*BP cond : 1*Con TR : 1*8' \
--gltLabel 10 BP-ConTR9  -gltCode  10 'grp : 1*BP cond : 1*Con TR : 1*9' \
+3dMVM -prefix sampled-HRF -jobs 8                                        \
+-bsVars 'sex+age+grp'                                                    \
+-wsVars 'cond*TR'                                                        \
+-qVars 'age' -qVarCenters '0'                                            \
+-num_glt 56                                                              \
+-gltLabel 1  BP-ConTR0  -gltCode  1  'grp : 1*BP cond : 1*Con TR : 1*0'  \
+-gltLabel 2  BP-ConTR1  -gltCode  2  'grp : 1*BP cond : 1*Con TR : 1*1'  \
+-gltLabel 3  BP-ConTR2  -gltCode  3  'grp : 1*BP cond : 1*Con TR : 1*2'  \
+-gltLabel 4  BP-ConTR3  -gltCode  4  'grp : 1*BP cond : 1*Con TR : 1*3'  \
+-gltLabel 5  BP-ConTR4  -gltCode  5  'grp : 1*BP cond : 1*Con TR : 1*4'  \
+-gltLabel 6  BP-ConTR5  -gltCode  6  'grp : 1*BP cond : 1*Con TR : 1*5'  \
+-gltLabel 7  BP-ConTR6  -gltCode  7  'grp : 1*BP cond : 1*Con TR : 1*6'  \
+-gltLabel 8  BP-ConTR7  -gltCode  8  'grp : 1*BP cond : 1*Con TR : 1*7'  \
+-gltLabel 9  BP-ConTR8  -gltCode  9  'grp : 1*BP cond : 1*Con TR : 1*8'  \
+-gltLabel 10 BP-ConTR9  -gltCode  10 'grp : 1*BP cond : 1*Con TR : 1*9'  \
 -gltLabel 11 BP-ConTR10 -gltCode  11 'grp : 1*BP cond : 1*Con TR : 1*10' \
 -gltLabel 12 BP-ConTR11 -gltCode  12 'grp : 1*BP cond : 1*Con TR : 1*11' \
 -gltLabel 13 BP-ConTR12 -gltCode  13 'grp : 1*BP cond : 1*Con TR : 1*12' \
