@@ -1,15 +1,96 @@
+Below are the scripts that were used to perform population-level analyses with three modeling approaches in the paper:
+
+"BOLD response is more than just magnitude: improving detection sensitivity through capturing hemodynamic profiles"
+
+1) Canonical HRP approach
+
+# This 3dMVM script specifies an ANCOVA model with one quantitative predictor (age) and three factors: sex (male/female), 
+# group (BP/HV), and condition (Con/Inc).
+
+3dMVM -prefix canonical-HRF -jobs 8                                        \
+-bsVars 'age+sex+grp'                                                      \
+-wsVars 'cond'                                                             \
+-qVars 'age'                                                               \
+-qVarCenters '0'                                                           \
+-num_glt 11                                                                \
+-gltLabel 1 BP:Inc-Con -gltCode  1 'grp :  1*BP cond : 1*Inc -1*Con'       \
+-gltLabel 2 HV:Inc-Con -gltCode  2 'grp :  1*HV cond : 1*Inc -1*Con'       \
+-gltLabel 3 Inc:HV-BP -gltCode   3 'grp :  1*HV -1*BP cond : 1*Inc'        \
+-gltLabel 4 Con:HV-BP -gltCode   4 'grp :  1*HV -1*BP cond : 1*Con'        \
+-gltLabel 5 HV-BP     -gltCode   5 'grp :  1*HV -1*BP'                     \
+-gltLabel 6 Inc-Con   -gltCode   6 'cond : 1*Inc -1*Con'                   \
+-gltLabel 7 grpXcond  -gltCode   7 'grp :  1*HV -1*BP cond : 1*Inc -1*Con' \
+-gltLabel 8 BP:Inc    -gltCode   8 'grp :  1*BP cond : 1*Inc'              \
+-gltLabel 9 BP:Con    -gltCode   9 'grp :  1*BP cond : 1*Con'              \
+-gltLabel 10 HV:Inc   -gltCode  10 'grp :  1*HV cond : 1*Inc'              \
+-gltLabel 11 HV:Con   -gltCode  11 'grp :  1*HV cond : 1*Con'              \
+-dataTable @canonical-HRF.tbl
+
+# The input files and variable information are contained in the file "canonical-HRF.tbl" as shown below:
+
+Subj age sex grp cond InputFile
+s1   6.2  F  BP Con   s1.Con.nii
+s1   6.2  F  BP Inc   s1.Inc.nii
+...
+s72  3.5  M  HV Con   s72.Con.nii
+s72  3.5  M  HV Inc   s72.Inc.nii
+...
+
+
+2) Sampled HRF approach
+
+# This 3dMVM script specifies an ANCOVA model with one quantitative predictor (age) and four factors: sex (male/female), 
+# group (BP/HV), condition (Con/Inc), and TR (0-13).
+
+3dMVM -prefix sampled-HRF -jobs 8 \
+-bsVars 'sex+age+grp' \
+-wsVars 'cond*TR' \
+-qVars 'age' -qVarCenters '0' \
+-num_glt 56       \
+-gltLabel 1  BP-ConTR0  -gltCode  1  'grp : 1*BP cond : 1*Con TR : 1*0' \
+-gltLabel 2  BP-ConTR1  -gltCode  2  'grp : 1*BP cond : 1*Con TR : 1*1' \
+-gltLabel 3  BP-ConTR2  -gltCode  3  'grp : 1*BP cond : 1*Con TR : 1*2' \
+-gltLabel 4  BP-ConTR3  -gltCode  4  'grp : 1*BP cond : 1*Con TR : 1*3' \
+-gltLabel 5  BP-ConTR4  -gltCode  5  'grp : 1*BP cond : 1*Con TR : 1*4' \
+-gltLabel 6  BP-ConTR5  -gltCode  6  'grp : 1*BP cond : 1*Con TR : 1*5' \
+-gltLabel 7  BP-ConTR6  -gltCode  7  'grp : 1*BP cond : 1*Con TR : 1*6' \
+-gltLabel 8  BP-ConTR7  -gltCode  8  'grp : 1*BP cond : 1*Con TR : 1*7' \
+-gltLabel 9  BP-ConTR8  -gltCode  9  'grp : 1*BP cond : 1*Con TR : 1*8' \
+-gltLabel 10 BP-ConTR9  -gltCode  10 'grp : 1*BP cond : 1*Con TR : 1*9' \
+-gltLabel 11 BP-ConTR10 -gltCode  11 'grp : 1*BP cond : 1*Con TR : 1*10' \
+-gltLabel 12 BP-ConTR11 -gltCode  12 'grp : 1*BP cond : 1*Con TR : 1*11' \
+-gltLabel 13 BP-ConTR12 -gltCode  13 'grp : 1*BP cond : 1*Con TR : 1*12' \
+-gltLabel 14 BP-ConTR13 -gltCode  14 'grp : 1*BP cond : 1*Con TR : 1*13' \
+...
+-dataTable @sampled-HRF.tbl
+
+# The input files and variable information are contained in the file "sampled-HRF.tbl" as shown below:  
+
+Subj age sex grp TR cond InputFile
+s1   6.2  F  BP   0 Con s1.Con.b0.nii
+s1   6.2  F  BP   0 Inc s1.Inc.b0.nii
+s1   6.2  F  BP   1 Con s1.Con.b1.nii
+s1   6.2  F  BP   1 Inc s1.Inc.b1.nii
+s1   6.2  F  BP   2 Con s1.Con.b2.nii
+s1   6.2  F  BP   2 Inc s1.Inc.b2.nii
+s1   6.2  F  BP   3 Con s1.Con.b3.nii
+s1   6.2  F  BP   3 Inc s1.Inc.b3.nii
+...
+
+
+3) Smooth HRF approach
+
 # This 3dMSS script compares HRFs between the two groups of BP (bipolar disorder) and HV (healthy volunteer) 
 # at the population level. Each HRF at the indiividual level is characterized at 14 time points with a time 
 # resolution TR = 1.25s. Two covariates are considered: sex and age. The program 3dMSS is part of the AFNI
 # package (https://afni.nimh.nih.gov/).
 
-3dMSS -prefix output                      \
-      -jobs 16                            \
+3dMSS -prefix output -jobs 16             \
       -lme 'sex+age+s(TR)+s(TR,by=group)' \
       -ranEff 'list(subject=~1)'          \
       -qVars 'sex,age,TR,group'           \
       -prediction @HRF.table              \
-      -dataTable  @input.table
+      -dataTable  @smooth-HRF.table
 
 # The output filename and number of CPUs for parallelization are specified through -prefix and -jobs, 
 # respectively. The expression s() in the model specification indicator '-lme' represents the smooth 
@@ -19,7 +100,7 @@
 # was set to the default K = 10. The option '-qVars' identifies quantitative variables (TR and age in 
 # this case plus dummy-coded sex and group). The last two specifiers -prediction and -dataTable list one
 # table for HRF prediction and another for input data information, respectively. The input file 
-# "input.table" is structured in a long data frame format:
+# "smooth-HRF.table" is structured in a long data frame format:
 
 subject age sex group TR  InputFile
 s1      29   1    1   0   s1.Inc.b0.nii
@@ -32,11 +113,11 @@ s1      29   1    1   4   s1.Inc.b4.nii
 # The following table as the input file "HRF.table" provides the specifications for predicted HRFs:
 
 label   age   sex   group   TR
-HV0.00   0     0     -1    0.00
-HV0.25   0     0     -1    0.25
-HV0.50   0     0     -1    0.50
+s1      6.2     0     -1    0.00
+s1      6.2     0     -1    0.25
+s1      6.2     0     -1    0.50
 ...
-BP0.00   0     0      1    0.00
-BP0.25   0     0      1    0.25
-BP0.50   0     0      1    0.50
+s72     3.5     0      1    0.00
+s72     3.5     0      1    0.25
+s72     3.5     0      1    0.50
 ...
