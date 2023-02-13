@@ -1,5 +1,6 @@
-#Script to process raw behavioral files from Task dataset, quality check files, produce timing files
-#Script requires tab delimited exported eprime file
+#Script to process raw behavioral files from Task dataset, quality
+#check files, produce timing files Script requires tab delimited
+#exported eprime file
 
 ###read in the raw data from the scanner
 Task_raw <- ""
@@ -10,8 +11,11 @@ for (Grp in group_list){
     print(Grp)
     fName<-paste0(Grp)
     Raw<-read.table(file=fName,sep="\t",header=T, stringsAsFactors = F)
-    db<-Raw[c("Subject", "Session","SessionDate","Welcome.FinishTime","CkScan.FinishTime", "OverallAccuracy","Img" ,"Fix.ACC", "Fix.RT", 
-              "Global1", "Global2", "Global3", "Local1", "Local2", "Local3", "Run1", "Run2","Run3","Run4","Run5","Run6", "Tgt.OnsetTime")]
+    db<-Raw[c("Subject", "Session", "SessionDate", "Welcome.FinishTime", 
+              "CkScan.FinishTime", "OverallAccuracy", "Img" , "Fix.ACC", 
+              "Fix.RT", "Global1", "Global2", "Global3", "Local1", 
+              "Local2", "Local3", "Run1", "Run2", "Run3", "Run4", "Run5", 
+              "Run6", "Tgt.OnsetTime")]
     Task_raw<-rbind(Task_raw,db)
   }
 
